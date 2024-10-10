@@ -11,3 +11,7 @@ After you have set the environment variables run:
 ```
 docker compose up -d
 ```
+
+## Project architecture
+
+[![](https://app.eraser.io/workspace/nN2BMoHWPFCd4n8nZSdp/preview?elements=KoZLXDZZ5JLkbWN_ETgD-w&type=embed)](https://app.eraser.io/workspace/nN2BMoHWPFCd4n8nZSdp?elements=KoZLXDZZ5JLkbWN_ETgD-w)
