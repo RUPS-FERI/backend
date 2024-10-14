@@ -12,6 +12,10 @@ After you have set the environment variables run:
 docker compose up -d
 ```
 
+## Project architecture
+
+[![](https://app.eraser.io/workspace/nN2BMoHWPFCd4n8nZSdp/preview?elements=KoZLXDZZ5JLkbWN_ETgD-w&type=embed)](https://app.eraser.io/workspace/nN2BMoHWPFCd4n8nZSdp?elements=KoZLXDZZ5JLkbWN_ETgD-w)
+
 ## Typescript gives error after package install
 
 After you install a package and try to use it you may get a typescript error saying *Could not find a declaration file for module <lib-name>*
