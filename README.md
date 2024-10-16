@@ -1,3 +1,10 @@
+## System requirements
+|  Name | Download link  |
+|---|---|
+|  Docker | [Get Docker](https://docs.docker.com/get-started/get-docker/)  |
+| Docker Compose | [Get Docker Compose](https://docs.docker.com/compose/install/) |
+|  Node | [Get Node](https://nodejs.org/en/download/package-manager)  |
+
 ## Project setup process
 
 Copy & paste `.env.example` and rename it to `.env` <br/>
@@ -7,7 +14,7 @@ cp .env.example .env
 
 In `.env` replace placeholders marked as `<value>` with actual values
 
-After you have set the environment variables run:
+After you have set the environment variables run (*on linux `sudo` might be required*):
 ```
 docker compose up -d
 ```
