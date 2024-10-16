@@ -30,6 +30,22 @@ services:
     depends_on:
       - mongo
 
+  rest-api:
+    build:
+      context: devops/docker
+      dockerfile: node.Dockerfile
+    restart: always
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    environment:
+      - NODE_ENV=${ENV}
+    volumes:
+      - .:/app/rest-api
+      - /app/rest-api/node_modules
+    depends_on:
+      - mongo
+    networks:
+      - app-network
 volumes:
   mongo-data:
 
