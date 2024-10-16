@@ -41,7 +41,6 @@ services:
       - NODE_ENV=${ENV}
     volumes:
       - .:/app/rest-api
-      - /app/rest-api/node_modules
     depends_on:
       - mongo
     networks:
