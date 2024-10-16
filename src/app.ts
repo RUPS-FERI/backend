@@ -1,5 +1,5 @@
 import express from 'express';
-import { cors, globalErrorHandler } from './middleware/index.js';
+import { cors, globalErrorHandler } from './_common/middlewares/index.js';
 
 const app = express();
 

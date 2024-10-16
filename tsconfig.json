@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "module": "ESNext",
+    "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "strict": true,
     "sourceMap": true,
@@ -15,8 +15,9 @@
     "outDir": "./dist",
     "lib": ["es2022"],
     "rootDir": "./src",
-    "declarationMap": true
+    "declarationMap": true,
+    "declaration": true
   },
   "include": ["src/**/*"],
-  "extends": ["node_modules", "dist"]
+  "exclude": ["node_modules", "dist"]
 }
