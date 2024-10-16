@@ -32,8 +32,8 @@ services:
 
   rest-api:
     build:
-      context: devops/docker
-      dockerfile: node.Dockerfile
+      context: .
+      dockerfile: Dockerfile
     restart: always
     ports:
       - ${APP_PORT}:${APP_PORT}
