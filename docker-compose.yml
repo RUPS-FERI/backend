@@ -43,6 +43,8 @@ services:
       - ${APP_PORT}:${APP_PORT}
     volumes:
       - .:/app/rest-api
+    environment:
+      - NODE_ENV=${ENV}
     depends_on:
       - mongo
     networks:
