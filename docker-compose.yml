@@ -1,3 +1,4 @@
+name: rups-backend
 networks:
   app-network:
     driver: bridge
@@ -34,13 +35,17 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        GITHUB_PAT: ${GITHUB_PAT}
+        NODE_ENV: ${ENV}
+        APP_PORT: ${APP_PORT}
     restart: always
     ports:
       - ${APP_PORT}:${APP_PORT}
-    environment:
-      - NODE_ENV=${ENV}
     volumes:
       - .:/app/rest-api
+    environment:
+      - NODE_ENV=${ENV}
     depends_on:
       - mongo
     networks:

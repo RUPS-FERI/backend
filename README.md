@@ -1,44 +1,94 @@
-## System requirements
-|  Name | Download link  |
-|---|---|
-|  Docker | [Get Docker](https://docs.docker.com/get-started/get-docker/)  |
-| Docker Compose | [Get Docker Compose](https://docs.docker.com/compose/install/) |
+## System Requirements
+
+To get started, make sure you have the following tools installed:
+
+| Tool               | Download Link                                                  |
+|--------------------|----------------------------------------------------------------|
+| **Docker**         | [Get Docker](https://docs.docker.com/get-started/get-docker/)  |
+| **Docker Compose** | [Get Docker Compose](https://docs.docker.com/compose/install/) |
+
+---
 
 ## Project setup process
-Copy & paste `.env.example` and rename it to `.env` <br/>
+
+### Step 1: Create a Personal Access Token (PAT) on GitHub
+
+To authenticate with GitHub, you'll need a Personal Access Token (PAT). Follow these steps to create one:
+
+1) Go to **GitHub** and log in to your account.
+2) Navigate to **Profile Settings**:
+   - Click on your profile icon in the top-right corner.
+   -  Select **Settings** from the dropdown menu.
+3) In the left sidebar, scroll down and select **Developer Settings**.
+4) Under **Developer Settings**, click on **Personal Access Tokens**.
+5) Click **Tokens (classic)** to access the section for generating new tokens. 
+6) Select **Generate New Token** and follow the prompts to configure and create your PAT.
+
+> Note: Remember to copy the generated PAT and save it for later use
+
+### Step 2: Clone the Repository
+
+Clone the project repository to your local machine:
+
+Clone repository
 ```
-cp .env.example .env
+git clone https://github.com/RUPS-FERI/packages-DI.git
+cd backend
 ```
 
-In `.env` replace placeholders marked as `<value>` with actual values
+---
 
-After you have set the environment variables run (*on linux `sudo` might be required*):
+### Step 3: Set Up Environment Variables
+
+1) Copy & paste `.env.example` and rename it to `.env`
+
+    ```
+    cp .env.example .env
+    ```
+   
+2) Open the `.env` file and replace placeholders marked as `<value>` with your actual configuration values.
+
+---
+
+### Step 4: Start the Docker Containers
+
+Run the following command to start up the Docker containers:
+
 ```
 docker compose up -d
 ```
 
-After docker is done setting up containers you should be able to access the `rest-api` container.
+> Note: On Linux System you might need to prefix the command with `sudo`
+
+---
+
+### Step 5: Access the `rest-api Container Logs
+
+Once Docker has finished setting up, you can check the `rest-api container logs to verify that the application is running:
+
 ````
 docker compose logs rest-api
 ````
-In the console output you should see something like : *REST API running on port: xyz*
+
+> Note: Output should be something like this: *REST API running on port: xyz*
 
 ## How to add packages
-Since the entire application is running inside a docker container you must install all packages from inside the container
-````
-docker compose exec rest-api npm install <pacakge_name>
-````
-or you can first enter the container:
-```` 
-docker compose exec rest-api sh
-````
 
-and the run `npm install <pacakge_name>`
+Since the entire application is running inside a docker container you must install all packages from inside the container
+
+1) Run the following command to install packages directly:
+    ````
+    docker compose exec rest-api npm install <pacakge_name>
+    ````
+2) Alternatively, enter the container shell and install from there:
+    ```` 
+    docker compose exec rest-api sh
+    npm install <package_name>
+    ````
 
 ## Typescript gives error after package install
-After you install a package and try to use it you may get a typescript error saying *Could not find a declaration file for module <lib-name>*
+If TypeScript gives an error such as `Could not find a declaration file for module <lib-name>`, you need to install the types for that library as a development dependency:
 
-Solution is to install types as developer dependency for the pacakge library. The usual command to do so is:
 ```
 npm i -D @types/<lib-name>
 ```

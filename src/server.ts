@@ -7,5 +7,5 @@ dotenv.config();
 const port = process.env.APP_PORT || 3000;
 
 app.listen(port, () => {
-  console.log(`REST API running on port : ${port}`);
+  console.log(`REST API running on port : ${port} (${process.env.ENV})`);
 });
