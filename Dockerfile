@@ -8,7 +8,7 @@ WORKDIR /app/rest-api
 # Set up Git to use the PAT for GitHub
 ARG GITHUB_PAT
 ENV GITHUB_PAT=${GITHUB_PAT}
-RUN git config --global url."https://${GITHUB_PAT}:@github.com/".insteadOf "https://github.com/"
+RUN git config --global url."https://${GITHUB_PAT}:@github.com/".insteadOf "ssh://git@github.com/"
 
 WORKDIR /app/rest-api
 
