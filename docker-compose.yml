@@ -1,3 +1,4 @@
+name: rups-backend
 networks:
   app-network:
     driver: bridge

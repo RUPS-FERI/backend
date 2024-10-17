@@ -24,6 +24,8 @@ To authenticate with GitHub, you'll need a Personal Access Token (PAT). Follow t
 5) Click **Tokens (classic)** to access the section for generating new tokens. 
 6) Select **Generate New Token** and follow the prompts to configure and create your PAT.
 
+> Note: Remember to copy the generated PAT and save it for later use
+
 ### Step 2: Clone the Repository
 
 Clone the project repository to your local machine:
