@@ -23,4 +23,4 @@ ARG NODE_ENV
 
 EXPOSE ${APP_PORT}
 
-CMD ["sh", "-c", "if [ \"${NODE_ENV}\" = dev ]; then npm run start:dev; else npm start; fi"]
+CMD ["sh", "-c", "npm install && if [ \"${NODE_ENV}\" = dev ]; then npm run start:dev; else npm start; fi"]
