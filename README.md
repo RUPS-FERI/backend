@@ -32,7 +32,7 @@ Clone the project repository to your local machine:
 
 Clone repository
 ```
-git clone https://github.com/RUPS-FERI/packages-DI.git
+git clone https://github.com/RUPS-FERI/backend.git
 cd backend
 ```
 
