@@ -16,7 +16,6 @@
     "resolveJsonModule": true,
     "outDir": "./dist",
     "lib": ["es2022"],
-    "rootDir": "./src",
     "declarationMap": true,
     "declaration": true
   },
