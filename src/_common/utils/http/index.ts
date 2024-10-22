@@ -1,1 +1,1 @@
-export * from  './status-code.http.utils.js'
+export * from './HttpStatusCode.js'
