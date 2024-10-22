@@ -46,7 +46,7 @@ cd backend
     cp .env.example .env
     ```
    
-2) Open the `.env` file and replace placeholders marked as `<value>` with your actual configuration values.
+2) Open the `.env` file and replace placeholders marked as `ChangeThis` with your actual configuration values.
 
 ---
 
