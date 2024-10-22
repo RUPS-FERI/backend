@@ -1,9 +1,9 @@
 import { ApiError } from './ApiError.js';
 import { HttpStatusCode } from '../utils/index.js';
-import type { KnownApiErrorBody } from './types/index.js';
+import type { KnownApiErrorParams } from './types/index.js';
 
 export class AlreadyExistsError extends ApiError {
-  constructor(data: KnownApiErrorBody) {
+  constructor(data: KnownApiErrorParams) {
     super({
       additionalData: data.additionalData,
       message: data.message,

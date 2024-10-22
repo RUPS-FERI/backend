@@ -1,2 +1,2 @@
-export * from './UnknownApiErrorBody.js'
-export * from './KnownApiErrorBody.js'
+export * from './UnknownApiErrorParams.js'
+export * from './KnownApiErrorParams.js'

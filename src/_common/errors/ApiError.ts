@@ -1,4 +1,4 @@
-import type { UnknownApiErrorBody } from './types/index.js';
+import type { UnknownApiErrorParams } from './types/index.js';
 import { HttpStatusCode } from '../utils/index.js';
 
 export class ApiError implements Error {
@@ -7,7 +7,7 @@ export class ApiError implements Error {
   public readonly status: HttpStatusCode;
   public readonly data?: object;
 
-  constructor(data: UnknownApiErrorBody) {
+  constructor(data: UnknownApiErrorParams) {
     this.message = data.message;
     this.name = 'Api Error';
     this.status = data.status;

@@ -1,9 +1,9 @@
 import { ApiError } from './ApiError.js';
-import type { KnownApiErrorBody } from './types/index.js';
+import type { KnownApiErrorParams } from './types/index.js';
 import { HttpStatusCode } from '../utils/index.js';
 
 export class NotFundError extends ApiError {
-  constructor(data: KnownApiErrorBody) {
+  constructor(data: KnownApiErrorParams) {
     super({
       additionalData: data.additionalData,
       message: data.message,
