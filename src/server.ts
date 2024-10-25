@@ -14,5 +14,6 @@ dataSource.initialize().then(() => {
     console.log(`REST API running on port : ${port} (${process.env.ENV})`);
   });
 })
+.catch((err) => console.log('DB connection error : ', err))
 
 
