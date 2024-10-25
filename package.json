@@ -5,16 +5,10 @@
   "main": "dist/server.js",
   "type": "module",
   "scripts": {
-    "build": "npm run migration:run; tsc",
+    "build": "run; tsc",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "start": "npm run build; node dist/server.js",
-    "start:dev": "npm run migration:run; npx tsx watch src/server.ts",
-    "typeorm": "ts-node --require tsconfig-paths/register ./node_modules/typeorm/cli",
-    "migration:run": "npm run typeorm migration:run -- -d ./db/typeorm.config.ts",
-    "migration:generate": "npm run typeorm -- -d ./db/typeorm.config.ts migration:generate ./db/migrations/$npm_config_name",
-    "migration:create": "npm run typeorm -- migration:create ./db/migrations/$npm_config_name",
-    "migration:revert": "npm run typeorm -- -d ./db/typeorm.config.ts migration:revert",
-    "migration:show": "npm run typeorm -- migration:show -d ./db/typeorm.config.ts"
+    "start:dev": "npx tsx watch src/server.ts"
   },
   "author": "",
   "license": "ISC",
@@ -27,6 +21,8 @@
     "eslint-plugin-prettier": "^5.2.1",
     "globals": "^15.10.0",
     "prettier": "3.3.3",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
     "tsx": "^4.19.1",
     "typescript": "^5.6.2",
     "typescript-eslint": "^8.8.1"
