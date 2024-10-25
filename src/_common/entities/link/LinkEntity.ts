@@ -1,5 +1,5 @@
 import { Column, Entity, JoinColumn, ManyToOne, type ObjectId, ObjectIdColumn } from 'typeorm';
-import { CoinContentEntity } from '../coin/CoinContentEntity.js';
+import { CoinContentEntity } from '../coin/index.js';
 
 @Entity({ name: 'link' })
 export class LinkEntity {

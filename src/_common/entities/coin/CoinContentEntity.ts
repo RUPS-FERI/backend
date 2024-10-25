@@ -1,6 +1,6 @@
 import { Entity, type ObjectId, ObjectIdColumn, OneToMany, OneToOne } from 'typeorm';
-import { LinkEntity } from '../link/LinkEntity.js';
-import { FileEntity } from '../file/FileEntity.js';
+import { LinkEntity } from '../link/index.js';
+import { FileEntity } from '../file/index.js';
 import type { CoinEntity } from './CoinEntity.js';
 
 @Entity({ name: 'coin_content' })

@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, type ObjectId, ObjectIdColumn } from 'typeorm';
 import { FileExtensionEntity } from './FileExtensionEntity.js';
 import { FileMimeTypeEntity } from './FileMimeTypeEntity.js';
-import { CoinContentEntity } from '../coin/CoinContentEntity.js';
+import { CoinContentEntity } from '../coin/index.js';
 
 @Entity({ name: 'file' })
 export class FileEntity {
