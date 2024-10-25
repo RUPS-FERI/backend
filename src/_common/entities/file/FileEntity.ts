@@ -1,6 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, type ObjectId, ObjectIdColumn } from 'typeorm';
 import { FileExtensionEntity } from './FileExtensionEntity.js';
 import { FileMimeTypeEntity } from './FileMimeTypeEntity.js';
+import { CoinContentEntity } from '../coin/CoinContentEntity.js';
 
 @Entity({ name: 'file' })
 export class FileEntity {
@@ -20,4 +21,8 @@ export class FileEntity {
   @ManyToOne(() => FileMimeTypeEntity, (fileMimeTyoe) => fileMimeTyoe.files)
   @JoinColumn({ name: 'file_mime_type_id' })
   mimeType?: FileMimeTypeEntity;
+
+  @ManyToOne(() => CoinContentEntity, (content) => content.files)
+  @JoinColumn({ name: 'coin_content_id' })
+  coinContent?: CoinContentEntity;
 }
