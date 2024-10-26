@@ -1,6 +1,6 @@
 import {
   Column,
-  Entity, JoinColumn,
+  Entity,
   type ObjectId,
   ObjectIdColumn,
   OneToMany, OneToOne,
@@ -28,7 +28,6 @@ export class CoinEntity {
   slug?: string;
 
   @OneToOne(() => CoinContentEntity, (content) => content.coin)
-  @JoinColumn({ name: 'coin_content_id' })
   content?: CoinContentEntity;
 
   @OneToMany(() => CoinPriceEntity, (price) => price.coin)
