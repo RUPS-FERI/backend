@@ -14,6 +14,18 @@ export class FileEntity {
   @Column({ type: 'int' })
   size?: number;
 
+  @Column({
+    type: 'bytea',
+    transformer: {
+      from: (value: Buffer) =>
+        Buffer.isBuffer(value)
+          ? value.toString()
+          : Buffer.from(value).toString(),
+      to: (value: string) => value,
+    },
+  })
+  data?: ArrayBuffer;
+
   @ManyToOne(() => FileExtensionEntity, (fileExtension) => fileExtension.files)
   @JoinColumn({ name: 'file_extension_id' })
   extension?: FileExtensionEntity
@@ -25,4 +37,19 @@ export class FileEntity {
   @ManyToOne(() => CoinContentEntity, (content) => content.files)
   @JoinColumn({ name: 'coin_content_id' })
   coinContent?: CoinContentEntity;
+
+  @Column({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+    name: 'created_at',
+  })
+  createdAt?: Date;
+
+  @Column({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+    onUpdate: 'CURRENT_TIMESTAMP',
+    name: 'updated_at',
+  })
+  updatedAt?: Date;
 }
