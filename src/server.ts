@@ -1,19 +1,21 @@
 import dotenv from 'dotenv';
 
 import app from './app.js';
-import dataSource from '../db/typeorm.config.js';
+import dbConnection from '../db/db.config.js';
 
 dotenv.config();
 
 const port = process.env.APP_PORT || 3000;
 
-dataSource.initialize().then(() => {
-  console.log('Database Connected Successfully');
+async function main() {
+  try {
+    await dbConnection;
+    app.listen(port, () => {
+      console.log(`REST API running on port : ${port} (${process.env.ENV})`);
+    });
+  } catch (err) {
+    console.log('DB connection error : ', err);
+  }
+}
 
-  app.listen(port, () => {
-    console.log(`REST API running on port : ${port} (${process.env.ENV})`);
-  });
-})
-.catch((err) => console.log('DB connection error : ', err))
-
-
+main();

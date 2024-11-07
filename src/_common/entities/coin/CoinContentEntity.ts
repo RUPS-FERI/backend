@@ -1,19 +1,11 @@
-import { Entity, type ObjectId, ObjectIdColumn, OneToMany, OneToOne } from 'typeorm';
-import { LinkEntity } from '../link/index.js';
-import { FileEntity } from '../file/index.js';
-import { CoinEntity } from './CoinEntity.js';
+import { model, Schema } from 'mongoose';
 
-@Entity({ name: 'coin_content' })
-export class CoinContentEntity {
-  @ObjectIdColumn()
-  _id?: ObjectId;
+const CoinContentEntitySchema = new Schema(
+  {
+    links: [{ type: Schema.Types.ObjectId, ref: 'Link' }],
+    files: [{ type: Schema.Types.ObjectId, ref: 'File' }],
+  },
+  { timestamps: true },
+);
 
-  @OneToMany(() => LinkEntity, (link) => link.coinContent)
-  links?: LinkEntity[];
-
-  @OneToMany(() => FileEntity, (link) => link.coinContent)
-  files?: FileEntity[];
-
-  @OneToOne(() => CoinEntity, (coin) => coin.content)
-  coin?: CoinEntity;
-}
+export const CoinContentEntity = model('CoinContent', CoinContentEntitySchema);
