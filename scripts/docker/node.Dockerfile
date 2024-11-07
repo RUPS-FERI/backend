@@ -16,7 +16,7 @@ COPY package*.json ./
 
 RUN npm install
 
-COPY . .
+COPY ../.. .
 
 ARG APP_PORT
 ARG NODE_ENV

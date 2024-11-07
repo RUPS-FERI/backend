@@ -1,39 +1,18 @@
-import { Column, Entity, JoinColumn, ManyToOne, type ObjectId, ObjectIdColumn } from 'typeorm';
-import { CoinEntity } from './CoinEntity.js';
+import { Schema, model } from 'mongoose';
 
-@Entity({ name: 'coin_price' })
-export class CoinPriceEntity {
-  @ObjectIdColumn()
-  _id?: ObjectId;
-
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  date?: Date;
-
-  @Column({
-    type: 'decimal',
-    precision: 19,
-    scale: 4,
-    default: 0,
-    transformer: {
-      from: (value: string) => +value,
-      to: (value: number) => value,
+const CoinPriceEntitySchema = new Schema(
+  {
+    date: { type: Date, required: true, default: () => 'CURRENT_TIMESTAMP' },
+    price: { type: Number, required: true },
+    volume: { type: Number, required: true },
+    marketCap: { type: Number, required: true },
+    coin: {
+      type: Schema.Types.ObjectId,
+      ref: 'Coin',
+      required: true,
     },
-  })
-  price?: number;
+  },
+  { timestamps: true },
+);
 
-  @Column({
-    type: 'decimal',
-    precision: 19,
-    scale: 4,
-    default: 0,
-    transformer: {
-      from: (value: string) => +value,
-      to: (value: number) => value,
-    },
-  })
-  volume?: number;
-
-  @ManyToOne(() => CoinEntity, (coin) => coin.prices)
-  @JoinColumn({ name: 'coin_id' })
-  coin?: CoinEntity;
-}
+export const CoinPriceEntity = model('Price', CoinPriceEntitySchema);

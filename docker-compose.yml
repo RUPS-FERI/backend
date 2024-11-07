@@ -39,7 +39,7 @@ services:
   rest-api:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: scripts/docker/node.Dockerfile
       args:
         GITHUB_PAT: ${GITHUB_PAT}
         NODE_ENV: ${ENV}
@@ -57,6 +57,14 @@ services:
     networks:
       - app-network
 
+  python-app:
+    build:
+      context: .
+      dockerfile: scripts/docker/python.Dockerfile
+    depends_on:
+      - mongo
+    networks:
+      - app-network
 volumes:
   mongo-data:
     driver: local

@@ -1,55 +1,25 @@
-import { Column, Entity, JoinColumn, ManyToOne, type ObjectId, ObjectIdColumn } from 'typeorm';
-import { FileExtensionEntity } from './FileExtensionEntity.js';
-import { FileMimeTypeEntity } from './FileMimeTypeEntity.js';
-import { CoinContentEntity } from '../coin/index.js';
+import { model, Schema } from 'mongoose';
 
-@Entity({ name: 'file' })
-export class FileEntity {
-  @ObjectIdColumn()
-  _id?: ObjectId;
-
-  @Column({ type: 'text', length: 255 })
-  name?: string;
-
-  @Column({ type: 'int' })
-  size?: number;
-
-  @Column({
-    type: 'bytea',
-    transformer: {
-      from: (value: Buffer) =>
-        Buffer.isBuffer(value)
-          ? value.toString()
-          : Buffer.from(value).toString(),
-      to: (value: string) => value,
+const FileEntitySchema = new Schema(
+  {
+    name: { type: String, required: true },
+    size: { type: Number, required: true },
+    data: {
+      data: Buffer,
+      contentType: String,
     },
-  })
-  data?: ArrayBuffer;
+    extension: {
+      type: Schema.Types.ObjectId,
+      ref: 'FileExtension',
+      required: true,
+    },
+    mimeType: {
+      type: Schema.Types.ObjectId,
+      ref: 'FileMimeType',
+      required: true,
+    },
+  },
+  { timestamps: true },
+);
 
-  @ManyToOne(() => FileExtensionEntity, (fileExtension) => fileExtension.files)
-  @JoinColumn({ name: 'file_extension_id' })
-  extension?: FileExtensionEntity
-
-  @ManyToOne(() => FileMimeTypeEntity, (fileMimeTyoe) => fileMimeTyoe.files)
-  @JoinColumn({ name: 'file_mime_type_id' })
-  mimeType?: FileMimeTypeEntity;
-
-  @ManyToOne(() => CoinContentEntity, (content) => content.files)
-  @JoinColumn({ name: 'coin_content_id' })
-  coinContent?: CoinContentEntity;
-
-  @Column({
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP',
-    name: 'created_at',
-  })
-  createdAt?: Date;
-
-  @Column({
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP',
-    onUpdate: 'CURRENT_TIMESTAMP',
-    name: 'updated_at',
-  })
-  updatedAt?: Date;
-}
+export const FileEntity = model('File', FileEntitySchema);

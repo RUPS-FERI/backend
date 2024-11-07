@@ -1,14 +1,13 @@
-import { Column, Entity, ObjectId, ObjectIdColumn, OneToMany } from 'typeorm';
-import { FileEntity } from './FileEntity.js';
+import { model, Schema } from 'mongoose';
 
-@Entity({ name: 'file_mime_type' })
-export class FileMimeTypeEntity {
-  @ObjectIdColumn()
-  _id?: ObjectId;
+const FileMimeTypeEntitySchema = new Schema(
+  {
+    type: { type: String, required: true, unique: true },
+  },
+  { timestamps: true },
+);
 
-  @Column({ type: 'varchar', length: 255, unique: true })
-  type?: string;
-
-  @OneToMany(() => FileEntity, (file) => file.mimeType)
-  files?: FileEntity[];
-}
+export const FileMimeTypeEntity = model(
+  'FileMimeType',
+  FileMimeTypeEntitySchema,
+);
