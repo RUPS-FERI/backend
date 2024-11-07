@@ -86,6 +86,14 @@ Since the entire application is running inside a docker container you must insta
     npm install <package_name>
     ````
 
+## How to load initial coin data
+
+To load coins and their prices into the database just run:
+```
+docker compose exec python-app python load-coins.py
+````
+> The script may take a while; for development, you can stop it once enough coins are loaded for testing.
+
 ## Typescript gives error after package install
 If TypeScript gives an error such as `Could not find a declaration file for module <lib-name>`, you need to install the types for that library as a development dependency:
 
