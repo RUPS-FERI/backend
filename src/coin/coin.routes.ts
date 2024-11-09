@@ -1,5 +1,5 @@
 import express from 'express';
-import { getCoins, getCoinById } from '../controllers/coin.controllers';
+import { getCoins, getCoinById } from './coin.controllers.js';
 
 const router = express.Router();
 
