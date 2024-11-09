@@ -3,7 +3,7 @@ import { getCoins, getCoinById } from './coin.controllers.js';
 
 const router = express.Router();
 
-router.get('/coins', getCoins);
-router.get('/coins/:id', getCoinById);
+router.get('/', getCoins);
+router.get('/:id', getCoinById);
 
 export default router;
