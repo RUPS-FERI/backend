@@ -28,4 +28,10 @@ userSchema.pre<IUser>('save', async function (next : CallbackWithoutResultAndOpt
     next();
 });
 
+userSchema.post('save', (error : any, doc : IUser, next : CallbackWithoutResultAndOptionalError) => {
+    if (error.code === 11000)
+      next(new Error('This user already exists, use another username or email.'));
+    else next(error);
+});
+
 export const UserEntity = model<IUser>('User', userSchema);
