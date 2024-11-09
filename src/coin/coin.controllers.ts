@@ -2,25 +2,26 @@ import type {Request, Response} from "express";
 import {CoinEntity} from "../_common/entities/index.js";
 import {NotFoundError} from "../_common/errors/index.js";
 import {CoinPriceEntity} from "../_common/entities/index.js";
+import {HttpStatusCode} from "../_common/utils/index.js";
 
 export const getCoins = async (req: Request, res: Response) => {
-    const { page = 1, size = 10, search } = req.query;
+    const { page = 1, size = 10 } = req.query;
+    const search = (req.query.search as string) || '';
 
     const pageNumber = parseInt(page as string, 10);
     const pageSize = parseInt(size as string, 10);
 
     const query: any = {};
     if (search) {
-        const searchStr = (search as string).toLowerCase();
+        const searchStr = search.toLowerCase();
         query.$or = [
             { name: { $regex: searchStr, $options: 'i' } },
             { code: { $regex: searchStr, $options: 'i' } },
         ];
     }
-
     const filteredCoins = await CoinEntity.find(query).skip((pageNumber - 1) * pageSize).limit(pageSize).select('name code files slug').exec();
 
-    res.status(200).json(filteredCoins);
+    res.status(HttpStatusCode.OK).json(filteredCoins);
 };
 
 export const getCoinById = async (req: Request, res: Response) => {
@@ -43,5 +44,5 @@ export const getCoinById = async (req: Request, res: Response) => {
         prices
     };
 
-    res.status(200).json(result);
+    res.status(HttpStatusCode.OK).json(result);
 };
