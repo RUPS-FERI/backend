@@ -1,4 +1,4 @@
-import 'express-async-error-patch'
+import 'express-async-errors';
 import express from 'express';
 import { cors, globalErrorHandler } from './_common/middlewares/index.js';
 import { authRoutes } from './auth/auth.routes.js';
