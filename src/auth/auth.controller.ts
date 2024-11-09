@@ -57,7 +57,7 @@ export const signup = async (req: Request, res: Response): Promise<void> => {
         JWT_SECRET, 
         { expiresIn: '30m' }
     );
-    res.set(HttpStatusCode.CREATED).json({ token });
+    res.status(HttpStatusCode.CREATED).json({ token });
 };
 
 export const signin = async (req: Request, res: Response): Promise<void> => {
