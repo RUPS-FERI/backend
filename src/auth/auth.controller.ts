@@ -70,7 +70,7 @@ export const signup = async (req: Request, res: Response): Promise<void> => {
 export const signin = async (req: Request, res: Response): Promise<void> => {
     const { username, password } = req.body;
 
-    const user = await UserEntity.findOne({ username });
+    const user = await UserEntity.findOne({ $or: [{ username: username }, { email: username }] });
     if (!user) {
         throw new NotFoundError({ message: 'Invalid credentials' });
     }
