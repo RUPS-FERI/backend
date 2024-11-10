@@ -1,5 +1,4 @@
 import { compare } from 'bcrypt';
-import jwt from 'jsonwebtoken';
 import type { Request, Response } from 'express';
 import {
   FileMimeTypeEntity,
@@ -9,11 +8,7 @@ import {
 } from '../_common/entities/index.js';
 import { NotFoundError } from '../_common/errors/index.js';
 import { HttpStatusCode } from '../_common/utils/index.js';
-import dotenv from 'dotenv';
-
-dotenv.config();
-
-const JWT_SECRET = process.env.JWT || '';
+import { generateJWTToken } from '../_common/utils/jwt.util.js';
 
 export const signup = async (req: Request, res: Response): Promise<void> => {
   const { username, email, password, dateOfBirth, profileImage } = req.body;
@@ -29,17 +24,15 @@ export const signup = async (req: Request, res: Response): Promise<void> => {
     throw new NotFoundError({ message: 'Mime type not found' });
   }
 
-  let imageFile = new FileEntity({
+  const imageFile = await FileEntity.create({
     name: 'profileImage',
     size: 0,
     data: profileImage,
     extension: fileExt._id,
     mimeType: mType._id,
   });
-  imageFile = await imageFile.save();
 
-  // Create new user
-  const user = new UserEntity({
+  const user = await UserEntity.create({
     username: username,
     email: email,
     password: password,
@@ -47,19 +40,11 @@ export const signup = async (req: Request, res: Response): Promise<void> => {
     dateOfBirth: dateOfBirth,
     profileImage: imageFile._id,
   });
-  await user.save();
 
-  // Generate JWT token
-  const token = jwt.sign(
-    {
-      username: user.username,
-      email: user.email,
-      dateOfBirth: user.dateOfBirth,
-    },
-    JWT_SECRET,
-    { expiresIn: '30m' },
-  );
-  res.set(HttpStatusCode.CREATED).json({ token });
+  const token = await generateJWTToken({ ...user, id: user._id as string });
+  res.set(HttpStatusCode.CREATED).json({
+    token: token,
+  });
 };
 
 export const signin = async (req: Request, res: Response): Promise<void> => {
@@ -77,15 +62,8 @@ export const signin = async (req: Request, res: Response): Promise<void> => {
     throw new NotFoundError({ message: 'Invalid credentials' });
   }
 
-  // Generate JWT token
-  const token = jwt.sign(
-    {
-      username: user.username,
-      email: user.email,
-      dateOfBirth: user.dateOfBirth,
-    },
-    JWT_SECRET,
-    { expiresIn: '30m' },
-  );
-  res.status(HttpStatusCode.OK).json({ token });
+  const token = await generateJWTToken({ ...user, id: user._id as string });
+  res.status(HttpStatusCode.OK).json({
+    token: token,
+  });
 };

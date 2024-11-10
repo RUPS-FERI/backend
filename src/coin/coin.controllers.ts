@@ -5,11 +5,9 @@ import { CoinPriceEntity } from '../_common/entities/index.js';
 import { HttpStatusCode } from '../_common/utils/index.js';
 
 export const getCoins = async (req: Request, res: Response) => {
-  const { page = 1, size = 10 } = req.query;
+  const pageNumber = +(req.query.page as string);
+  const pageSize = +(req.query.size as string);
   const search = (req.query.search as string) || '';
-
-  const pageNumber = parseInt(page as string, 10);
-  const pageSize = parseInt(size as string, 10);
 
   const filteredCoins = await CoinEntity.find({
     $or: [
@@ -24,10 +22,19 @@ export const getCoins = async (req: Request, res: Response) => {
       path: 'content',
       populate: {
         path: 'files',
+        populate: {
+          path: 'mimeType extension',
+        },
+      },
+    })
+    .populate({
+      path: 'content',
+      populate: {
+        path: 'links',
       },
     });
 
-  res.status(HttpStatusCode.OK).json(filteredCoins);
+  res.status(HttpStatusCode.OK).json({ coins: filteredCoins });
 };
 
 export const getCoinById = async (req: Request, res: Response) => {
@@ -36,7 +43,7 @@ export const getCoinById = async (req: Request, res: Response) => {
   const coin = await CoinEntity.findById(id).populate({
     path: 'content',
     populate: {
-      path: 'files',
+      path: 'files link',
     },
   });
 
