@@ -13,6 +13,8 @@ To get started, make sure you have the following tools installed:
 
 ### Step 1: Create a Personal Access Token (PAT) on GitHub
 
+> If you already possess a vlaid GitHub PAT you can skip this part
+
 To authenticate with GitHub, you'll need a Personal Access Token (PAT). Follow these steps to create one:
 
 1) Go to **GitHub** and log in to your account.
