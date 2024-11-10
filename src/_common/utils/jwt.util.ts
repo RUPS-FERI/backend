@@ -25,7 +25,7 @@ export const varifyJwt = (token: string) => {
   try {
     const decodedToken = jwt.verify(token, process.env.JWT!);
     return decodedToken as JWTPayload;
-  } catch (error) {
+  } catch {
     throw new UnauthorizedError({ message: 'Invalid token.' });
   }
 };
