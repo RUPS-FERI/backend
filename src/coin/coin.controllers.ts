@@ -3,6 +3,8 @@ import { CoinEntity } from '../_common/entities/index.js';
 import { NotFoundError } from '../_common/errors/index.js';
 import { CoinPriceEntity } from '../_common/entities/index.js';
 import { HttpStatusCode } from '../_common/utils/index.js';
+//@ts-ignore
+import axios from 'axios';
 
 export const getCoins = async (req: Request, res: Response) => {
   const pageNumber = +(req.query.page as string);
@@ -60,3 +62,24 @@ export const getCoinById = async (req: Request, res: Response) => {
     prices: prices,
   });
 };
+
+export const updatePrices = async () => {
+  const coins = await CoinEntity.find();
+  
+  console.log(coins);
+  
+  for (const coin of coins) {
+    const { id, externalId } = coin;
+    
+    try {
+      const respose = await axios.get(`https://api.coinmarketcap.com/data-api/v3/cryptocurrency/detail/chart?id=${externalId}&range=7D`);
+
+      const coinPriceData = respose.data.data.points;
+      const newPrice = coinPriceData[Object.keys(coinPriceData).pop() as string].v[0];
+
+      await CoinPriceEntity.updateOne({ coin: id }, { $set: { price: newPrice } });
+    } catch (error) {
+      console.error("Error fetching coin price data:", error);
+    }
+  }
+}
