@@ -34,7 +34,16 @@ export const getCoins = async (req: Request, res: Response) => {
       },
     });
 
-  res.status(HttpStatusCode.OK).json({ coins: filteredCoins });
+  const totalCoins = await CoinEntity.countDocuments({
+    $or: [
+      { name: { $regex: search, $options: 'i' } },
+      { code: { $regex: search, $options: 'i' } },
+    ],
+  });
+
+  res
+    .status(HttpStatusCode.OK)
+    .json({ coins: filteredCoins, totalAmount: totalCoins });
 };
 
 export const getCoinById = async (req: Request, res: Response) => {
