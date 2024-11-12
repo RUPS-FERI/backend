@@ -41,9 +41,21 @@ export const getCoins = async (req: Request, res: Response) => {
     ],
   });
 
+  const coinsWithLastPrice: object[] = Array(filteredCoins.length);
+  for (let i = 0; i < filteredCoins.length; i++) {
+    const coin = filteredCoins[i]!;
+    const lastPrice = await CoinPriceEntity.findOne({ coin: coin._id }, null, {
+      sort: { date: -1 },
+    });
+    coinsWithLastPrice[i] = {
+      ...coin.toObject(),
+      prices: [lastPrice],
+    };
+  }
+
   res
     .status(HttpStatusCode.OK)
-    .json({ coins: filteredCoins, totalAmount: totalCoins });
+    .json({ coins: coinsWithLastPrice, totalAmount: totalCoins });
 };
 
 export const getCoinById = async (req: Request, res: Response) => {
@@ -65,7 +77,9 @@ export const getCoinById = async (req: Request, res: Response) => {
     .limit(20);
 
   res.status(HttpStatusCode.OK).json({
-    coin: coin,
-    prices: prices,
+    coin: {
+      ...coin,
+      prices: prices,
+    },
   });
 };
